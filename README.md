@@ -68,3 +68,13 @@ class MapViewController: UIViewController {
 - iOS 13.0+
 - Swift 5.7+
 - Xcode 12.0+
+
+## Note
+
+- The package includes pre-packed map tile resources
+- Make sure to request appropriate permissions if accessing location data
+- The package is optimized for iOS devices with modern processors
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
