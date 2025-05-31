@@ -51,42 +51,79 @@ if let tileImage = map.tileImage(x: 100, y: 50, z: 13) {
 }
 ```
 
-### Displaying Map Tiles
+### Using WebView Implementation
 
-Here's a complete example of how to display map tiles in a UIImageView:
+The package now includes a `MapWebView` class that loads the map tiles using the embedded HTML file. This provides a more interactive map experience with built-in zoom and pan functionality.
 
 ```swift
 import UIKit
 import MapTiles
 
 class MapViewController: UIViewController {
-    private var imageView: UIImageView!
-    private let map = MapTiles()
+    private var mapWebView: MapWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Create image view
-        imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        view.addSubview(imageView)
-        
-        // Load and display tile
-        if let tileImage = map.tileImage(x: 100, y: 50, z: 13) {
-            imageView.image = tileImage
-        }
+        // Create map web view
+        mapWebView = MapWebView(x: 100, y: 50, z: 13)
+        view.addSubview(mapWebView)
         
         // Add constraints
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        mapWebView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 256),
-            imageView.heightAnchor.constraint(equalToConstant: 256)
+            mapWebView.topAnchor.constraint(equalTo: view.topAnchor),
+            mapWebView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            mapWebView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapWebView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }
 ```
+
+### Updating Map Location
+
+You can update the map's location at any time:
+
+```swift
+// Move to a new location
+mapWebView.moveTo(x: 150, y: 60, z: 14)
+```
+
+### WebView Features
+
+- Built-in zoom and pan functionality
+- Smooth tile loading
+- Preserves all original HTML map features
+- Automatic resource loading from embedded files
+- Fully customizable through HTML/JS
+
+### Customizing the Map
+
+The map can be customized by modifying the embedded HTML file. The package includes:
+- Leaflet.js for map functionality
+- Custom markers
+- Location data
+- All necessary JavaScript and CSS files
+
+To customize the map:
+1. Modify the `map.html` file in the Resources directory
+2. Update the JavaScript configuration in `locations.js`
+3. Add custom markers or overlays as needed
+
+### Performance Tips
+
+- The WebView implementation is optimized for iOS devices
+- Tiles are loaded on-demand for better performance
+- Built-in caching is handled by the WebView
+- Memory usage is optimized for mobile devices
+
+### Important Notes
+
+- The WebView requires internet access for initial load
+- Map functionality is handled by Leaflet.js
+- All resources are embedded in the package
+- The map can be customized through JavaScript
 
 ### Getting Map Dimensions
 
